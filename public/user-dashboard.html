@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Dashboard</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="header">
+    <div class="logo">
+      <img src="/images/railway-logo.png" alt="East Coast Railway Logo">
+    </div>
+    <div class="title">
+      <h1>Online Form for I-Cards</h1>
+      <h2>East Coast Railway - User Dashboard</h2>
+    </div>
+  </div>
+
+  <div class="user-container">
+    <div class="sidebar">
+      <ul>
+        <li><a href="#" class="active">My Applications</a></li>
+        <li><a href="/apply-gazetted">Apply for Gazetted I-Card</a></li>
+        <li><a href="/apply-non-gazetted">Apply for Non-Gazetted I-Card</a></li>
+        <li><a href="/status">Check Application Status</a></li>
+      </ul>
+    </div>
+
+    <div class="user-content">
+      <h3>My Applications</h3>
+      <div class="application-tabs">
+        <button class="tab-btn active" onclick="showApplications('gazetted')">Gazetted</button>
+        <button class="tab-btn" onclick="showApplications('non-gazetted')">Non-Gazetted</button>
+      </div>
+
+      <div id="gazetted-apps" class="application-list">
+        <!-- Gazetted applications will be loaded here -->
+      </div>
+
+      <div id="non-gazetted-apps" class="application-list" style="display:none;">
+        <!-- Non-gazetted applications will be loaded here -->
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Designed, Developed and Maintained by IT Centre/ECoR/Bhubaneswar</p>
+  </div>
+
+  <script>
+    // Get user ID from session or local storage
+    const userId = localStorage.getItem('userId') || 'current-user-id';
+    
+    // Load applications when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      loadApplications();
+    });
+
+    async function loadApplications() {
+      try {
+        const response = await fetch(`/api/user/applications/${userId}`);
+        const result = await response.json();
+        
+        if (result.success) {
+          displayApplications(result.data.gazetted, 'gazetted-apps');
+          displayApplications(result.data.nonGazetted, 'non-gazetted-apps');
+        } else {
+          alert('Failed to load applications: ' + (result.error || 'Unknown error'));
+        }
+      } catch (error) {
+        console.error('Error loading applications:', error);
+        alert('Failed to load applications. Please try again.');
+      }
+    }
+
+    function displayApplications(applications, containerId) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = '';
+      
+      if (applications.length === 0) {
+        container.innerHTML = '<p>No applications found</p>';
+        return;
+      }
+      
+      applications.forEach(app => {
+        const appCard = document.createElement('div');
+        appCard.className = 'application-card';
+        appCard.innerHTML = `
+          <div class="app-header">
+            <h4>${app.name}</h4>
+            <span class="status-badge ${app.status.toLowerCase()}">${app.status}</span>
+          </div>
+          <div class="app-details">
+            <p><strong>ID:</strong> ${app._id}</p>
+            <p><strong>Department:</strong> ${app.department}</p>
+            <p><strong>Submitted:</strong> ${new Date(app.createdAt).toLocaleString()}</p>
+            ${app.status === 'Rejected' && app.rejectionReason ? 
+              `<p><strong>Rejection Reason:</strong> ${app.rejectionReason}</p>` : ''}
+          </div>
+          <div class="app-actions">
+            <button onclick="viewApplication('${app._id}', '${containerId.includes('gazetted') ? 'gazetted' : 'non-gazetted'}')">View Details</button>
+          </div>
+        `;
+        container.appendChild(appCard);
+      });
+    }
+
+    function showApplications(type) {
+      document.getElementById('gazetted-apps').style.display = 'none';
+      document.getElementById('non-gazetted-apps').style.display = 'none';
+      document.getElementById(`${type}-apps`).style.display = 'block';
+      
+      // Update active tab
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      event.target.classList.add('active');
+    }
+
+    function viewApplication(appId, type) {
+      // Redirect to status page with the application ID
+      window.location.href = `/status?appId=${appId}&type=${type}`;
+    }
+  </script>
+</body>
+</html>

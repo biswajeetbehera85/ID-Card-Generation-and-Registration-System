@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Application Status</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #f5f7fa;
+      color: #333;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      background-color: #002147;
+      color: #fff;
+      padding: 20px;
+      gap: 20px;
+    }
+
+    .header .logo img {
+      height: 60px;
+    }
+
+    .title h1 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .title h2 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: normal;
+      opacity: 0.9;
+    }
+
+    .status-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .status-tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .tab-btn {
+      padding: 10px 20px;
+      border: none;
+      margin: 0 5px;
+      border-radius: 5px;
+      background-color: #ddd;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .tab-btn.active {
+      background-color: #002147;
+      color: #fff;
+    }
+
+    .tab-content {
+      background: #fff;
+      padding: 25px 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      font-weight: 600;
+    }
+
+    input[type="text"],
+    input[type="date"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      margin-top: 5px;
+      border-radius: 5px;
+    }
+
+    button[type="submit"] {
+      padding: 10px 20px;
+      background-color: #004b91;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #003366;
+    }
+
+    .status-result {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #f8f9fb;
+      border-radius: 8px;
+    }
+
+    .status-badge {
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.85em;
+      font-weight: bold;
+      text-transform: capitalize;
+    }
+
+    .approved { background-color: #d4edda; color: #155724; }
+    .pending { background-color: #fff3cd; color: #856404; }
+    .rejected { background-color: #f8d7da; color: #721c24; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    table th,
+    table td {
+      text-align: left;
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .photo-preview {
+      margin-top: 20px;
+    }
+
+    .photo-preview img {
+      max-width: 200px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .error {
+      color: #d93025;
+      font-weight: 500;
+    }
+
+    .loading {
+      color: #666;
+    }
+
+    .footer {
+      background-color: #002147;
+      color: #fff;
+      text-align: center;
+      padding: 12px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+      .tab-btn {
+        flex: 1;
+        font-size: 14px;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">
+      <img src="images/ecor.png" alt="East Coast Railway Logo" />
+    </div>
+    <div class="title">
+      <h1>Online I-Card Portal</h1>
+      <h2>Application Status</h2>
+    </div>
+  </div>
+
+  <div class="status-container">
+    <div id="direct-check" class="tab-section">
+      <div class="status-tabs">
+        <button class="tab-btn active" onclick="openTab('gaz-status', event)">Gazetted</button>
+        <button class="tab-btn" onclick="openTab('non-gaz-status', event)">Non-Gazetted</button>
+      </div>
+
+      <div id="gaz-status" class="tab-content">
+        <h3>Check Gazetted Application</h3>
+        <form id="gazStatusForm">
+          <div class="form-group">
+            <label for="gazAppId">Application ID</label>
+            <input type="text" id="gazAppId" name="applicationId" required />
+          </div>
+          <div class="form-group">
+            <label for="gazDob">Date of Birth</label>
+            <input type="date" id="gazDob" name="dob" required />
+          </div>
+          <button type="submit">Submit</button>
+        </form>
+        <div id="gazetted-status-result" class="status-result"></div>
+      </div>
+
+      <div id="non-gaz-status" class="tab-content" style="display:none;">
+        <h3>Check Non-Gazetted Application</h3>
+        <form id="nonGazStatusForm">
+          <div class="form-group">
+            <label for="nonGazAppId">Application ID</label>
+            <input type="text" id="nonGazAppId" name="applicationId" required />
+          </div>
+          <div class="form-group">
+            <label for="nonGazDob">Date of Birth</label>
+            <input type="date" id="nonGazDob" name="dob" required />
+          </div>
+          <button type="submit">Submit</button>
+        </form>
+        <div id="non-gazetted-status-result" class="status-result"></div>
+      </div>
+    </div>
+
+    <div id="linked-application" class="tab-section" style="display:none;">
+      <h3>Application Details</h3>
+      <div id="linkedAppResult" class="status-result"></div>
+      <button onclick="window.location.href='/user-dashboard'" style="margin-top: 20px;">Back to Dashboard</button>
+    </div>
+  </div>
+
+  <div class="footer">
+    Designed, Developed and Maintained by IT Centre / ECoR / Bhubaneswar
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const appId = urlParams.get('appId');
+    const appType = urlParams.get('type');
+
+    if (appId && appType) {
+      document.getElementById('direct-check').style.display = 'none';
+      document.getElementById('linked-application').style.display = 'block';
+      loadLinkedApplication(appId, appType);
+    }
+
+    function openTab(tabId, e) {
+      document.querySelectorAll('.tab-content').forEach(tab => tab.style.display = 'none');
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(tabId).style.display = 'block';
+      e.target.classList.add('active');
+    }
+
+    async function loadLinkedApplication(appId, appType) {
+      try {
+        const res = await fetch(`/api/status/${appType}/${appId}`);
+        const data = await res.json();
+        if (data.success) {
+          displayApplication(data.data, 'linkedAppResult');
+        } else {
+          document.getElementById('linkedAppResult').innerHTML = `<p class="error">${data.error || 'Application not found.'}</p>`;
+        }
+      } catch (err) {
+        console.error(err);
+        document.getElementById('linkedAppResult').innerHTML = `<p class="error">Unable to load application.</p>`;
+      }
+    }
+
+    function displayApplication(app, containerId) {
+      const container = document.getElementById(containerId);
+      let html = `
+        <table>
+          <tr><th>Application ID</th><td>${app._id}</td></tr>
+          <tr><th>Name</th><td>${app.name}</td></tr>
+          <tr><th>${app.ruid ? 'RUID' : 'Employee No'}</th><td>${app.ruid || app.empNo}</td></tr>
+          <tr><th>Designation</th><td>${app.designation}</td></tr>
+          <tr><th>Department</th><td>${app.department}</td></tr>
+          <tr><th>Status</th><td><span class="status-badge ${app.status.toLowerCase()}">${app.status}</span></td></tr>
+          <tr><th>Submitted On</th><td>${new Date(app.createdAt).toLocaleString()}</td></tr>
+          ${app.status === 'Rejected' && app.rejectionReason ? `<tr><th>Rejection Reason</th><td>${app.rejectionReason}</td></tr>` : ''}
+          ${app.status === 'Approved' && app.approvedAt ? `<tr><th>Approved On</th><td>${new Date(app.approvedAt).toLocaleString()}</td></tr>` : ''}
+        </table>
+      `;
+      if (app.photo) {
+        html += `
+          <div class="photo-preview">
+            <h4>Photo:</h4>
+            <img src="/uploads/${app.photo}" alt="Applicant Photo">
+          </div>
+        `;
+      }
+      container.innerHTML = html;
+    }
+
+    document.getElementById('gazStatusForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      checkStatus('gazetted', e.target);
+    });
+
+    document.getElementById('nonGazStatusForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      checkStatus('non-gazetted', e.target);
+    });
+
+    async function checkStatus(type, form) {
+      const resultDiv = document.getElementById(`${type}-status-result`);
+      resultDiv.innerHTML = `<p class="loading">Checking status...</p>`;
+      try {
+        const res = await fetch(`/api/status/${type}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            applicationId: form.applicationId.value,
+            dob: form.dob.value
+          })
+        });
+        const data = await res.json();
+        if (data.success) {
+          displayApplication(data.data, `${type}-status-result`);
+        } else {
+          resultDiv.innerHTML = `<p class="error">${data.error || 'Application not found.'}</p>`;
+        }
+      } catch (err) {
+        console.error(err);
+        resultDiv.innerHTML = `<p class="error">Failed to check status. Please try again.</p>`;
+      }
+    }
+  </script>
+</body>
+</html>

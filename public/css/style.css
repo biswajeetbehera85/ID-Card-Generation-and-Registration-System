@@ -1,0 +1,476 @@
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+/* Header Styles */
+.header {
+  background-color: #003366;
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+}
+
+.header .logo img {
+  height: 60px;
+  margin-right: 20px;
+}
+
+.header .title h1 {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.header .title h2 {
+  font-size: 18px;
+  font-weight: normal;
+}
+
+/* Main Menu Styles */
+.main-menu {
+  max-width: 800px;
+  margin: 30px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.main-menu ul {
+  list-style: none;
+}
+
+.main-menu li {
+  margin-bottom: 15px;
+}
+
+.main-menu a {
+  display: block;
+  padding: 12px 15px;
+  background: #f0f0f0;
+  color: #003366;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.main-menu a:hover {
+  background: #003366;
+  color: white;
+}
+
+.main-menu span {
+  margin-right: 10px;
+}
+
+/* Footer Styles */
+.footer {
+  text-align: center;
+  padding: 15px;
+  background: #003366;
+  color: white;
+  font-size: 14px;
+}
+
+/* Admin Panel Styles */
+.admin-container {
+  display: flex;
+  min-height: calc(100vh - 150px);
+}
+
+.sidebar {
+  width: 250px;
+  background: #2c3e50;
+  padding: 20px 0;
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar li a {
+  display: block;
+  padding: 12px 20px;
+  color: white;
+  text-decoration: none;
+  border-left: 4px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.sidebar li a:hover, .sidebar li a.active {
+  background: #34495e;
+  border-left: 4px solid #3498db;
+}
+
+.admin-content {
+  flex: 1;
+  padding: 20px;
+  background: white;
+}
+
+.content-section {
+  display: none;
+}
+
+.content-section h3 {
+  margin-bottom: 20px;
+  color: #003366;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.search-box {
+  margin-bottom: 20px;
+  display: flex;
+}
+
+.search-box input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px 0 0 4px;
+}
+
+.search-box button {
+  padding: 10px 15px;
+  background: #003366;
+  color: white;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+}
+
+/* Status Page Styles */
+.status-container {
+  max-width: 800px;
+  margin: 30px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.status-tabs {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 20px;
+}
+
+.tab-btn {
+  padding: 10px 20px;
+  background: #f0f0f0;
+  border: none;
+  cursor: pointer;
+  margin-right: 5px;
+  border-radius: 4px 4px 0 0;
+}
+
+.tab-btn.active {
+  background: #003366;
+  color: white;
+}
+
+.tab-content {
+  display: none;
+  padding: 20px 0;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+button[type="submit"] {
+  background: #003366;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.status-result {
+  margin-top: 20px;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 4px;
+}
+
+/* Application List Styles */
+.application-list {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.application-item {
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.application-item:last-child {
+  border-bottom: none;
+}
+
+.application-info {
+  flex: 1;
+}
+
+.application-actions button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.approve-btn {
+  background: #27ae60;
+  color: white;
+}
+
+.reject-btn {
+  background: #e74c3c;
+  color: white;
+}
+
+.view-btn {
+  background: #3498db;
+  color: white;
+}
+/* Add these to your existing style.css */
+
+/* User Dashboard Styles */
+.user-container {
+  display: flex;
+  min-height: calc(100vh - 150px);
+}
+
+.sidebar {
+  width: 250px;
+  background: #2c3e50;
+  padding: 20px 0;
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar li a {
+  display: block;
+  padding: 12px 20px;
+  color: white;
+  text-decoration: none;
+  border-left: 4px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.sidebar li a:hover, 
+.sidebar li a.active {
+  background: #34495e;
+  border-left: 4px solid #3498db;
+}
+
+.user-content {
+  flex: 1;
+  padding: 20px;
+  background: white;
+}
+
+.application-tabs {
+  margin-bottom: 20px;
+}
+
+.application-list {
+  margin-top: 20px;
+}
+
+.application-card {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.status-badge {
+  padding: 3px 8px;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.status-badge.pending {
+  background: #f39c12;
+  color: white;
+}
+
+.status-badge.approved {
+  background: #27ae60;
+  color: white;
+}
+
+.status-badge.rejected {
+  background: #e74c3c;
+  color: white;
+}
+
+.app-details p {
+  margin: 5px 0;
+}
+
+.app-actions {
+  margin-top: 10px;
+  text-align: right;
+}
+
+.app-actions button {
+  padding: 5px 15px;
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+/* Form Styles */
+.form-container {
+  max-width: 800px;
+  margin: 30px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.form-group textarea {
+  min-height: 100px;
+}
+
+.form-actions {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.form-actions button {
+  padding: 10px 20px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.form-actions button[type="submit"] {
+  background: #27ae60;
+  color: white;
+}
+
+.form-actions button[type="button"] {
+  background: #95a5a6;
+  color: white;
+}
+
+/* Status Page Styles */
+.tab-section {
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.status-result table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.status-result th,
+.status-result td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.status-result th {
+  background: #f2f2f2;
+  width: 30%;
+}
+
+.photo-preview {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.photo-preview img {
+  max-width: 200px;
+  max-height: 200px;
+  border: 1px solid #ddd;
+}
+
+/* Message Styles */
+.loading {
+  color: #3498db;
+}
+
+.success {
+  color: #27ae60;
+}
+
+.error {
+  color: #e74c3c;
+}

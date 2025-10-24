@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>East Coast Railway - I-CARD Portal</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-image: url("images/ecorHQ.jpg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      position: relative;
+      overflow-x: hidden;
+      z-index: -1;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      filter: blur(8px);
+      z-index: -1;
+    }
+
+    .header {
+      background: rgba(0, 43, 91, 0.9);
+      color: white;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+    }
+
+    .img1 {
+      height: 60px;
+      width: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 15px;
+      border: 2px solid #fff;
+    }
+
+    .img2 {
+      height: 50px;
+      margin-left: auto;
+    }
+
+    .header-title h1 {
+      font-size: 26px;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .subheading {
+      font-size: 14px;
+      color: #cce0ff;
+      font-weight: 400;
+    }
+
+    .main-container {
+      max-width: 600px;
+      margin: 60px auto;
+      padding: 40px 30px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      text-align: center;
+    }
+
+    .main-container h2 {
+      font-size: 28px;
+      font-weight: bold;
+      color: #002B5B;
+      margin-bottom: 30px;
+    }
+
+    .menu-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .menu-list li {
+      margin: 20px 0;
+    }
+
+
+    .glossy-button {
+      position: relative;
+      background-color: #1e1f26;
+      color: white;
+      font-weight: 600;
+      padding: 16px 60px;
+      font-size: 16px;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .glossy-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.15),
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0.15)
+  );
+  transform: skewX(-20deg);
+  pointer-events: none;
+  opacity: 0;
+}
+
+.glossy-button:hover::before {
+  animation: shine 1.6s forwards;
+  opacity: 1;
+}
+
+@keyframes shine {
+  0% {
+    left: -75%;
+  }
+  100% {
+    left: 130%;
+  }
+}
+
+
+    .glossy-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    @keyframes shine {
+      0% {
+        left: -75%;
+      }
+      100% {
+        left: 130%;
+      }
+    }
+
+    .footer {
+      margin-top: 50px;
+      text-align: center;
+      color: #eee;
+      font-size: 14px;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 20px;
+      backdrop-filter: blur(10px);
+    }
+
+    @media (max-width: 600px) {
+      .header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+      }
+
+      .img2 {
+        margin-top: 15px;
+      }
+
+      .main-container {
+        margin: 30px 20px;
+        padding: 30px 20px;
+      }
+
+      .glossy-button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <img class="img1" src="images/ecor.png" alt="ECoR Logo" />
+      <div class="header-title">
+        <h1>East Coast Railway</h1>
+        <div class="subheading">Online Form for I‑Cards</div>
+      </div>
+    </div>
+    <img class="img2" src="images/azadi-ka-amrit-mahotsav.png" alt="Amrit Mahotsav" />
+  </div>
+
+  <!-- Main Menu -->
+  <div class="main-container">
+    <h2>Main Menu</h2>
+    <ul class="menu-list">
+      <li><a href="apply-gazetted.html" class="glossy-button">Apply for New I‑Card (Gazetted)</a></li>
+      <li><a href="apply-non-gazetted.html" class="glossy-button">Apply for New I‑Card (Non‑Gazetted)</a></li>
+      <li><a href="status.html" class="glossy-button">Application Details & Status</a></li>
+      <li><a href="admin.html" class="glossy-button">Admin Login</a></li>
+    </ul>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    Designed, Developed & Maintained by Interns 
+  </div>
+
+</body>
+</html>
